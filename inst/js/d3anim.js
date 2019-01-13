@@ -22,16 +22,16 @@ var svg = d3.select("#d3_output_2")
     .attr("width", w)
     .attr("height", h);
 
-var x = d3.scale.linear().domain([-1, 1]).range([left_pad, w - pad]),
-    y = d3.scale.linear().domain([-1, 1]).range([pad, h - pad * 2]);
+var x = d3.scaleLinear().domain([-1, 1]).range([left_pad, w - pad]),
+    y = d3.scaleLinear().domain([-1, 1]).range([pad, h - pad * 2]);
 
 var xCenter = (w - left_pad)/2;
 var yCenter = ((h-pad*2) - pad)/2;
 
-var xAxis = d3.svg.axis().scale(x).orient("bottom")
+var xAxis = d3.axisBottom(x)
     .ticks(10);
 
-var yAxis = d3.svg.axis().scale(y).orient("left")
+var yAxis = d3.axisLeft(y)
     .ticks(10);
 
 svg.append("g")
