@@ -1,11 +1,19 @@
 Package: tourrGUID3
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Tourr GUI Based on Shiny and D3
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Authors@R: c(person("Ursula", "Laa", email = "ursula.laa@monash.edu", role = c("aut", "cre")),
+             person("Michael", "Kipp", email = "mkipp271@gmail.com", role = "aut"))
+Description: This is a simple shiny app GUI for the tourr package
+    with a D3 based display. The app allows for interactive variable selection,
+    grouping for the display, selection of tour type and various guided tour indexes.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
+Imports:
+    tourr,
+    shiny,
+    jsonlite
+Suggests:
+    scagnostics
+    
