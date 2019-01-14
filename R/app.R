@@ -72,19 +72,11 @@ launchApp <- function(inputDataFile){
              )
       ),
       column(6,
-             #tags$div(tags$p(" "), ggvisOutput("ggvis")),
-             #tags$div(tags$p(textOutput("type"))),
              tags$script(src = "https://d3js.org/d3.v4.min.js"),
-             #tags$script(src = "https://d3js.org/d3-contour.v1.min.js"),
-             #tags$script(src = "https://d3js.org/d3-scale-chromatic.v1.min.js"),
-             #includeScript(system.file("inst/js/d3anim.js", package = "tourrGUID3")),
-             #tags$script(src = "d3anim.js"),
              tags$div(id = "d3_output"),
              tags$div(id = "d3_output_2"),
              tags$div(id = "info"),
              tags$div(id = "info_2"),
-             #tags$script(src = "d3anim.js"),
-             #includeScript("inst/js/d3anim.js")
              includeScript(system.file("js/d3anim.js", package = "tourrGUID3"))
              )
     )
