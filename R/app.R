@@ -73,6 +73,7 @@ launchApp <- function(inputDataFile){
       ),
       column(6,
              tags$script(src = "https://d3js.org/d3.v4.min.js"),
+             tags$script(src="https://d3js.org/d3-scale-chromatic.v1.min.js"),
              tags$div(id = "d3_output"),
              tags$div(id = "d3_output_2"),
              tags$div(id = "info"),

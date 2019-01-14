@@ -6,7 +6,7 @@ var w = 500,
     aps,
     fps,
     palette,
-    colourmap = {},
+    colourmap,
     density = 1;
 
 
@@ -86,9 +86,8 @@ function(message) {
       .attr("width", 18)
       .attr("height", 18)
       .style("fill", function(d) {
-        return colourmap[d]
+        return colourmap(d)
       });
-
 
       legend.append("text")
       .attr("x", w - 24)
@@ -99,13 +98,8 @@ function(message) {
 
         }
 
-  l = message.length
-  palette = d3.scaleOrdinal(d3.schemeDark2);
-
-  for (i = 0; i < l; i++) {
-    colourmap[message[i]] = palette(i); // for discrete palettes
-    // colourmap[message[i]] = palette((i+1)/(l+1)); // for continuous palettes
-    }
+  colourmap = d3.scaleOrdinal(d3.schemeDark2)
+  .domain(message);
 
     draw_legend(message);
 
@@ -135,7 +129,7 @@ Shiny.addCustomMessageHandler("data",
             })
             .attr("r", 2)
             .attr("fill", function(d) {
-              return colourmap[d.c]
+              return colourmap(d.c)
             })
             .append("svg:title")
             .text(function(d) {return d.pL})
