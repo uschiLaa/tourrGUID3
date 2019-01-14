@@ -37,11 +37,13 @@ var yAxis = d3.axisLeft(y)
 svg.append("g")
     .attr("class", "axis")
     .attr("transform", "translate(0, " + (h - pad) + ")")
+    .selectAll("text").remove()
     .call(xAxis);
 
 svg.append("g")
     .attr("class", "axis")
     .attr("transform", "translate(" + (left_pad - pad) + ", 0)")
+    .selectAll("text").remove()
     .call(yAxis);
 
 svg.append("text")
