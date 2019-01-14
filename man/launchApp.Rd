@@ -2,15 +2,25 @@
 % Please edit documentation in R/app.R
 \name{launchApp}
 \alias{launchApp}
-\title{Shiny app for tourr D3 gui}
+\title{Launch Shiny app for tourr D3 gui.}
 \usage{
 launchApp(inputDataFile)
 }
 \arguments{
-\item{inputDataFile}{Path to starting input data file (csv format)}
+\item{inputDataFile}{Path to initial input data file (csv format)}
 }
 \description{
-Shiny app for tourr D3 gui
+Launching the interactive tourr GUI shiny app with selected input.
+}
+\details{
+The function is building and launching the shiny app,
+reading the input data from the specified csv file and
+displaying the 2-d projections obtained via the tourr package.
+}
+\examples{
+\dontrun{
+launchApp(system.file("extdata", "geozoo.csv", package = "tourrGUID3"))}
+
 }
 \author{
 Ursula Laa

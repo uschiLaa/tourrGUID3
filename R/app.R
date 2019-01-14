@@ -1,8 +1,20 @@
-#' Launch Shiny app for tourr D3 gui
+#' Launch Shiny app for tourr D3 gui.
+#'
+#' Launching the interactive tourr GUI shiny app with selected input.
+#'
+#' The function is building and launching the shiny app,
+#' reading the input data from the specified csv file and
+#' displaying the 2-d projections obtained via the tourr package.
+#'
 #'
 #' @param inputDataFile Path to initial input data file (csv format)
 #' @author Ursula Laa
 #' @author Michael Kipp
+#'
+#' @examples
+#' \dontrun{
+#' launchApp(system.file("extdata", "geozoo.csv", package = "tourrGUID3"))}
+#'
 #' @export
 #'
 
