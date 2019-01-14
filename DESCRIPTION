@@ -16,4 +16,4 @@ Imports:
     jsonlite
 Suggests:
     scagnostics
-    
+RoxygenNote: 6.1.1

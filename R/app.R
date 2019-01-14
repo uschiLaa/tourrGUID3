@@ -1,6 +1,6 @@
-#' Shiny app for tourr D3 gui
+#' Launch Shiny app for tourr D3 gui
 #'
-#' @param inputDataFile Path to starting input data file (csv format)
+#' @param inputDataFile Path to initial input data file (csv format)
 #' @author Ursula Laa
 #' @author Michael Kipp
 #' @export
@@ -264,6 +264,7 @@ launchApp <- function(inputDataFile){
                                   message = list(d = jsonlite::toJSON(data.frame(pL=rv$pLabel[,1],x=j[,2],y=j[,1],c=j[,3])),
                                                  a = jsonlite::toJSON(data.frame(n=rv$vars,y=step$proj[,1],x=step$proj[,2]))))
         }
+
 
       else{
 
