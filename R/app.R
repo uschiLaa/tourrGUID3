@@ -197,6 +197,7 @@ launchApp <- function(inputDataFile){
                      tourr::new_tour(rv$mat,
                               choose_tour(input$type, input$guidedIndex, cl, input$scagType))
                    rv$ini <- FALSE
+                   rv$stopNext <- FALSE
                  })
 
 
@@ -253,6 +254,14 @@ launchApp <- function(inputDataFile){
 
     shiny::observe({
 
+      if (length(rv$mat[1, ]) < 3) {
+        session$sendCustomMessage(type = "debug", message = "Error: Need >2 variables.")
+      }
+
+      if (rv$stopNext){
+        session$sendCustomMessage(type = "debug", message = "Guided tour finished: no better bases found.")
+        return()
+      }
 
       aps <- rv$aps
       tour <- rv$tour
@@ -265,27 +274,21 @@ launchApp <- function(inputDataFile){
         step <- rv$tour(aps / fps)
       }
 
-      if (!is.null(step)) {
-        shiny::invalidateLater(1000 / fps)
+      shiny::invalidateLater(1000 / fps)
 
-        j <- tourr::center(rv$mat %*% step$proj)
-        j <- cbind(j, class = rv$class)
-        colnames(j) <- NULL
+      j <- tourr::center(rv$mat %*% step$proj)
+      j <- cbind(j, class = rv$class)
+      colnames(j) <- NULL
 
-        session$sendCustomMessage(type = "data",
-                                  message = list(d = jsonlite::toJSON(data.frame(pL=rv$pLabel[,1],x=j[,2],y=j[,1],c=j[,3])),
-                                                 a = jsonlite::toJSON(data.frame(n=rv$vars,y=step$proj[,1],x=step$proj[,2]))))
-        }
+      if (step$step == -1) rv$stopNext <- TRUE # step$step = -1 is telling us that this is the final projection
+      else rv$stopNext <- FALSE
+
+      session$sendCustomMessage(type = "data",
+                                message = list(d = jsonlite::toJSON(data.frame(pL=rv$pLabel[,1],x=j[,2],y=j[,1],c=j[,3])),
+                                                a = jsonlite::toJSON(data.frame(n=rv$vars,y=step$proj[,1],x=step$proj[,2]))))
 
 
-      else{
 
-        if (length(rv$mat[1, ]) < 3) {
-          session$sendCustomMessage(type = "debug", message = "Error: Need >2 variables.")
-        } else {
-          session$sendCustomMessage(type = "debug", message = "Guided tour finished: no better bases found.")
-        }
-      }
     })
 
 
