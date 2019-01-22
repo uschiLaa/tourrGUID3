@@ -34,24 +34,11 @@ launchApp <- function(inputDataFile){
                shiny::selectInput(
                  "guidedIndex",
                  "Index function",
-                 c("Holes", "Centre Mass", "LDA", "PDA", "Scagnostics")
+                 c("Holes", "Centre Mass", "LDA", "PDA")
                  ,
                  selected = "LDA"
                )
              ),
-             shiny::conditionalPanel(
-               "input.guidedIndex == 'Scagnostics'",
-               shiny::selectInput("scagType", "Scagnostics Metric",
-                           choices = list(
-                             "Outlying",
-                             "Skewed",
-                             "Clumpy",
-                             "Sparse",
-                             "Striated",
-                             "Convex",
-                             "Skinny",
-                             "Stringy",
-                             "Monotonic"))),
 
              shiny::fileInput("file1", "Choose CSV File",
                        accept = c(
@@ -110,7 +97,7 @@ launchApp <- function(inputDataFile){
                    b <- matrix(runif(2*p), p, 2)
 
                    rv$tour <- tourr::new_tour(as.matrix(rv$d[input$variables]),
-                                       choose_tour(input$type, input$guidedIndex, c(rv$class[[1]]), input$scagType),
+                                       choose_tour(input$type, input$guidedIndex, c(rv$class[[1]])),
                                        b)
                  }, ignoreInit = TRUE)
 
@@ -139,7 +126,7 @@ launchApp <- function(inputDataFile){
     })
 
 
-    shiny::observeEvent(c(input$type, input$variables, input$guidedIndex, input$class, input$scagType, input$point_label, input$cMax),
+    shiny::observeEvent(c(input$type, input$variables, input$guidedIndex, input$class, input$point_label, input$cMax),
                  {
 
                    session$sendCustomMessage("debug", paste("Changed tour type to ", input$type))
@@ -195,7 +182,7 @@ launchApp <- function(inputDataFile){
 
                    rv$tour <-
                      tourr::new_tour(rv$mat,
-                              choose_tour(input$type, input$guidedIndex, cl, input$scagType))
+                              choose_tour(input$type, input$guidedIndex, cl))
                    rv$ini <- FALSE
                    rv$stopNext <- FALSE
                  })
@@ -214,30 +201,6 @@ launchApp <- function(inputDataFile){
       }
     }
 
-    scags <- function(cl,scagMetricIndex) {
-
-      l <- length(unique(cl))
-
-      if (l != 2)
-      {
-        stop("Scagnostics indices require two groups.")
-      }
-
-
-      function(mat) {
-        mat_ <- cbind.data.frame(mat, class = cl)
-
-
-        scagResults = c(scagnostics::scagnostics(subset(mat_, class == unique(cl)[1])[1:2])[scagMetricIndex],
-                        scagnostics::scagnostics(subset(mat_, class == unique(cl)[2])[1:2])[scagMetricIndex]
-
-        )
-
-
-        return(abs(scagResults[1] - scagResults[2]))
-
-      }
-    }
 
     cmass_ <- function() {
       function(mat) {
@@ -295,9 +258,8 @@ launchApp <- function(inputDataFile){
 
     choose_tour <- function(type,
                             subtype = "",
-                            group_variable = "",
-                            scagTypeIndex
-    )
+                            group_variable = ""
+                            )
 
     {
 
@@ -321,10 +283,7 @@ launchApp <- function(inputDataFile){
           tourType <- tourr::guided_tour(tourr::lda_pp(group_variable))
         } else if (subtype == "PDA") {
           tourType <- tourr::guided_tour(tourr::pda_pp(group_variable))
-        } else {
-          tourType <- tourr::guided_tour(scags(group_variable, scagTypeIndex))
         }
-
       }
 
       return(tourType)
