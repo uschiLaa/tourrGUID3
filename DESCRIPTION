@@ -7,7 +7,7 @@ Authors@R: c(person("Ursula", "Laa", email = "ursula.laa@monash.edu", role = c("
 Description: This is a simple shiny app GUI for the tourr package
     with a D3 based display. The app allows for interactive variable selection,
     grouping for the display, selection of tour type and various guided tour indexes.
-License: What license is it under?
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports:
