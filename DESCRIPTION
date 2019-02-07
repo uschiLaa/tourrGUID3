@@ -3,7 +3,8 @@ Type: Package
 Title: Tourr GUI Based on Shiny and D3
 Version: 0.1.0
 Authors@R: c(person("Ursula", "Laa", email = "ursula.laa@monash.edu", role = c("aut", "cre")),
-             person("Michael", "Kipp", email = "mkipp271@gmail.com", role = "aut"))
+             person("Michael", "Kipp", email = "mkipp271@gmail.com", role = "aut"),
+             person("Dianne", "Cook", email = "dicook@monash.edu", role = "aut"))
 Description: This is a simple shiny app GUI for the tourr package
     with a D3 based display. The app allows for interactive variable selection,
     grouping for the display, selection of tour type and various guided tour indexes.

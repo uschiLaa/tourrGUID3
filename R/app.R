@@ -87,14 +87,14 @@ launchApp <- function(inputDataFile){
 
     rv <- shiny::reactiveValues()
 
-    rv$d <- read.csv(inputDataFile, stringsAsFactors = FALSE)
+    rv$d <- utils::read.csv(inputDataFile, stringsAsFactors = FALSE)
 
     shiny::observeEvent(input$restart_random,
                  {
 
                    p <- length(input$variables)
                    if(p==0){return()}
-                   b <- matrix(runif(2*p), p, 2)
+                   b <- matrix(stats::runif(2*p), p, 2)
 
                    rv$tour <- tourr::new_tour(as.matrix(rv$d[input$variables]),
                                        choose_tour(input$type, input$guidedIndex, c(rv$class[[1]])),
@@ -105,7 +105,7 @@ launchApp <- function(inputDataFile){
 
     shiny::observeEvent(input$file1, {
       inFile <- input$file1
-      rv$d <- read.csv(inFile$datapath, stringsAsFactors = FALSE)
+      rv$d <- utils::read.csv(inFile$datapath, stringsAsFactors = FALSE)
     })
 
     shiny::observeEvent(rv$d, {
@@ -139,7 +139,7 @@ launchApp <- function(inputDataFile){
                        minC <- min(rv$d[names(rv$d)[1]])
                        maxC <- max(rv$d[names(rv$d)[1]])
                        if((input$cMax >= minC) & (input$cMax <= maxC) ){medC <- input$cMax}
-                       else{medC <- median(rv$d[names(rv$d)[1]][,1])}
+                       else{medC <- stats::median(rv$d[names(rv$d)[1]][,1])}
                        stepC <- (max(rv$d[names(rv$d)[1]]) - min(rv$d[names(rv$d)[1]])) / 100
                        cl <- rv$class[,1]
                        rv$class <- unname(ifelse(rv$d[names(rv$d)[1]] > input$cMax, "Larger", "Smaller"))
@@ -160,7 +160,7 @@ launchApp <- function(inputDataFile){
                        minC <- min(rv$d[input$class])
                        maxC <- max(rv$d[input$class])
                        if((input$cMax >= minC) & (input$cMax <= maxC) ){medC <- input$cMax}
-                       else{medC <- median(rv$d[input$class][,1])}
+                       else{medC <- stats::median(rv$d[input$class][,1])}
                        stepC <- (max(rv$d[input$class]) - min(rv$d[input$class])) / 100
                        cl <- rv$class[,1]
                        rv$class <- unname(ifelse(rv$d[input$class] > input$cMax, "Larger", "Smaller"))
