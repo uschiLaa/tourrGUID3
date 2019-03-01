@@ -99,6 +99,7 @@ launchApp <- function(inputDataFile){
                    rv$tour <- tourr::new_tour(as.matrix(rv$d[input$variables]),
                                        choose_tour(input$type, input$guidedIndex, c(rv$class[[1]])),
                                        b)
+                   rv$ini <- FALSE
                  }, ignoreInit = TRUE)
 
     shiny::observeEvent(input$speed, rv$aps <- input$speed)
