@@ -13,7 +13,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' launchApp(system.file("extdata", "geozoo.csv", package = "tourrGUID3"))}
+#' library(tourrGUID3)
+#' launchApp(system.file("extdata", "geozoo.csv", package = "tourrGUID3"))
+#' }
 #'
 #' @export
 #'
