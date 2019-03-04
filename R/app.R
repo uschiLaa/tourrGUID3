@@ -10,6 +10,7 @@
 #' @param inputDataFile Path to initial input data file (csv format)
 #' @author Ursula Laa
 #' @author Michael Kipp
+#' @author Dianne Cook
 #'
 #' @examples
 #' \dontrun{
